@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.KplCsvceshiMapper">
+    
+    <resultMap type="KplCsvceshi" id="KplCsvceshiResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="sex"    column="sex"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="frequency"    column="frequency"    />
+        <result property="category"    column="category"    />
+        <result property="salesman"    column="salesman"    />
+        <result property="designer"    column="designer"    />
+        <result property="customer"    column="customer"    />
+        <result property="comment"    column="comment"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectKplCsvceshiVo">
+        select id, name, sex, phone, address, frequency, category, salesman, designer, customer, comment, create_time, status from kpl_csvceshi
+    </sql>
+
+    <select id="selectKplCsvceshiList" parameterType="KplCsvceshi" resultMap="KplCsvceshiResult">
+        <include refid="selectKplCsvceshiVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="address != null  and address != ''"> and address like concat('%', #{address}, '%')</if>
+            <if test="category != null "> and category = #{category}</if>
+            <if test="salesman != null  and salesman != ''"> and salesman = #{salesman}</if>
+            <if test="designer != null  and designer != ''"> and designer = #{designer}</if>
+            <if test="customer != null  and customer != ''"> and customer = #{customer}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectKplCsvceshiById" parameterType="Long" resultMap="KplCsvceshiResult">
+        <include refid="selectKplCsvceshiVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertKplCsvceshi" parameterType="KplCsvceshi" useGeneratedKeys="true" keyProperty="id">
+        insert into kpl_csvceshi
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="sex != null">sex,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="frequency != null">frequency,</if>
+            <if test="category != null">category,</if>
+            <if test="salesman != null">salesman,</if>
+            <if test="designer != null">designer,</if>
+            <if test="customer != null">customer,</if>
+            <if test="comment != null">comment,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="frequency != null">#{frequency},</if>
+            <if test="category != null">#{category},</if>
+            <if test="salesman != null">#{salesman},</if>
+            <if test="designer != null">#{designer},</if>
+            <if test="customer != null">#{customer},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKplCsvceshi" parameterType="KplCsvceshi">
+        update kpl_csvceshi
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="frequency != null">frequency = #{frequency},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="salesman != null">salesman = #{salesman},</if>
+            <if test="designer != null">designer = #{designer},</if>
+            <if test="customer != null">customer = #{customer},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKplCsvceshiById" parameterType="Long">
+        delete from kpl_csvceshi where id = #{id}
+    </delete>
+
+    <delete id="deleteKplCsvceshiByIds" parameterType="String">
+        delete from kpl_csvceshi where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
